@@ -22,8 +22,6 @@ public class Population {
         population.initPopulation();
         population.doSimulation();
         //population.printSorted();
-
-
     }
 
     public void initPopulation(){
@@ -41,7 +39,6 @@ public class Population {
         return temp;
     }
     public void printSorted(){
-
         for(float individual: getSortedPopulation()){
             System.out.println(individual);
         }
@@ -49,7 +46,8 @@ public class Population {
 
     public void doSimulation(){
         int maxIter = 1000000;
-
+        float[] sorted = getSortedPopulation();
+        System.out.println("MAXDIF(start): "+(sorted[populationSize-1] - sorted[0]));
 
         int i =0;
         for (; !nicePopulation() && i < maxIter; i++) {
@@ -65,13 +63,11 @@ public class Population {
     }
 
     private boolean nicePopulation(){
-
-
         float[] sorted = getSortedPopulation();
         float maxDif = sorted[populationSize-1] - sorted[0];
         if(maxDif < threshold_maxDif){
             System.out.println("achieved a nice population :-)");
-            System.out.println("MAXDIF: "+maxDif);
+            System.out.println("MAXDIF(end): "+maxDif);
             return true;
         }
         return false;
@@ -88,7 +84,6 @@ public class Population {
     private void shiftAll(){
         float[] diffs = new float[populationSize];
         for (int i = 0; i < populationSize; i++) {
-            int j = random.nextInt(populationSize);
             diffs[random.nextInt(populationSize)] = population[i] * shiftRate;
             population[i] -= population[i] * shiftRate;
         }
